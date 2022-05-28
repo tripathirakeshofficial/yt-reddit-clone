@@ -63,7 +63,7 @@ function PostBox() {
         })
 
         console.log('Creating post...', formData)
-        const image = formData || ''
+        const image = formData.postImage || ''
 
         const {
           data: { insertPost: newPost },
@@ -83,8 +83,7 @@ function PostBox() {
       } else {
         console.log('Using existing Subreddit!!!')
         console.log(getSubredditListByTopic)
-
-        const image = formData || ''
+        const image = formData.postImage || ''
 
         const {
           data: { insertPost: newPost },
