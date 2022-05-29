@@ -41,7 +41,7 @@ type Vote {
   created_at: DateTime
   id: ID!
   post_id: ID
-  upvote: Int
+  upvote: Boolean
   username: String
 }
 
@@ -51,16 +51,6 @@ type Query {
       type: "postgresql"
       schema: "public"
       table: "comment"
-      configuration: "postgresql_config"
-    )
-
-  getVotesByPostId(post_id: ID!): [Vote]
-    @dbquery(
-      type: "postgresql"
-      query: """
-      select * from "vote" where "post_id"= $1
-      order by "created_at" desc
-      """
       configuration: "postgresql_config"
     )
 
@@ -179,6 +169,16 @@ type Query {
       table: "vote"
       configuration: "postgresql_config"
     )
+
+  getVotesByPostId(post_id: ID!): [Vote]
+    @dbquery(
+      type: "postgresql"
+      query: """
+      select * from "vote" where "post_id"= $1
+      order by "created_at" desc
+      """
+      configuration: "postgresql_config"
+    )
 }
 
 type Mutation {
@@ -214,6 +214,15 @@ type Mutation {
       type: "postgresql"
       schema: "public"
       table: "comment"
+      dml: INSERT
+      configuration: "postgresql_config"
+    )
+
+  insertVote(post_id: ID!, upvote: Boolean!, username: String!): Vote
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "vote"
       dml: INSERT
       configuration: "postgresql_config"
     )
