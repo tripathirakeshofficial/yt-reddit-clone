@@ -120,6 +120,7 @@ type Query {
       """
       configuration: "postgresql_config"
     )
+
   getPostList: [Post]
     @dbquery(
       type: "postgresql"
@@ -130,6 +131,19 @@ type Query {
       """
       configuration: "postgresql_config"
     )
+
+  getPostListByTopic(topic: String!): [Post]
+    @dbquery(
+      type: "postgresql"
+      query: """
+      select *, "post".id as id from "post"
+      join "subreddit" on "subreddit"."id" = "post"."subreddit_id"
+      where "subreddit"."topic"= $1
+      order by "post"."created_at" desc
+      """
+      configuration: "postgresql_config"
+    )
+
   getSubredditList: [Subreddit]
     @dbquery(
       type: "postgresql"
@@ -137,6 +151,7 @@ type Query {
       table: "subreddit"
       configuration: "postgresql_config"
     )
+
   getSubredditListByTopic(topic: String!): [Subreddit]
     @dbquery(
       type: "postgresql"
@@ -146,6 +161,7 @@ type Query {
       """
       configuration: "postgresql_config"
     )
+
   getVoteList: [Vote]
     @dbquery(
       type: "postgresql"
