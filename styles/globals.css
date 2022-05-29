@@ -6,4 +6,8 @@
   .icon {
     @apply h-9 w-6 cursor-pointer rounded-sm lg:w-9 lg:p-1 lg:hover:bg-gray-100;
   }
+
+  .voteButtons {
+    @apply h-6 w-6 rounded-md p-1 hover:bg-gray-200;
+  }
 }
