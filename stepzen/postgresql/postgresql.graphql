@@ -209,6 +209,15 @@ type Mutation {
       configuration: "postgresql_config"
     )
 
+  insertComment(post_id: ID!, text: String!, username: String!): Comment
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "comment"
+      dml: INSERT
+      configuration: "postgresql_config"
+    )
+
   """
   In this mutation example you can see how to do a mutation to delete data from the database.
   """
